@@ -14,73 +14,49 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set Up Python
-        uses: actions/setup-python@v4
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.x"
+          node-version: "18"
 
-      - name: Remove Duplicate New Entries
+      - name: Remove Duplicates, Sort, and Update Lists
         run: |
-          import json
-          import os
+          node -e '
+          const fs = require("fs");
 
-          # Ensure directories exist
-          os.makedirs("json", exist_ok=True)
-          os.makedirs("text", exist_ok=True)
+          // File paths
+          const fullListPath = "json/fullSchoolList.json";
+          const schoolListJsonPath = "json/schoolList.json";
+          const schoolListTxtPath = "text/schoolList.txt";
 
-          # Load full school list
-          with open("json/fullSchoolList.json", "r", encoding="utf-8") as f:
-              data = json.load(f)
+          // Ensure directories exist
+          fs.mkdirSync("json", { recursive: true });
+          fs.mkdirSync("text", { recursive: true });
 
-          # Detect duplicates by checking names
-          seen = set()
-          cleaned_data = []
-          duplicates_removed = []
+          // Load full school list
+          let data = JSON.parse(fs.readFileSync(fullListPath, "utf8"));
 
-          for entry in data:
-              name = entry.get("name", "").strip().lower()
-              if name in seen:
-                  duplicates_removed.append(entry)  # Store duplicate for logging
-              else:
-                  seen.add(name)
-                  cleaned_data.append(entry)
+          // Remove duplicates and sort
+          let seen = new Set();
+          let cleanedData = data.filter(entry => {
+            let name = entry.name?.trim().toLowerCase();
+            if (!name || seen.has(name)) return false;
+            seen.add(name);
+            return true;
+          }).sort((a, b) => a.name.localeCompare(b.name));
 
-          # If duplicates were found, commit them as deleted
-          if duplicates_removed:
-              # Save the cleaned list back
-              with open("json/fullSchoolList.json", "w", encoding="utf-8") as f:
-                  json.dump(cleaned_data, f, indent=2, ensure_ascii=False)
+          // Extract and sort names
+          let schoolNames = cleanedData.map(entry => entry.name).sort();
 
-              # Commit the changes with the deleted entry names
-              commit_message = "Deleted duplicate entries: " + ", ".join(
-                  [entry['name'] for entry in duplicates_removed]
-              )
+          // Save updated files
+          fs.writeFileSync(fullListPath, JSON.stringify(cleanedData, null, 2));
+          fs.writeFileSync(schoolListJsonPath, JSON.stringify(schoolNames, null, 2));
+          fs.writeFileSync(schoolListTxtPath, schoolNames.join("\n") + "\n");
 
-              os.system("git config --global user.name 'github-actions[bot]'")
-              os.system("git config --global user.email 'github-actions[bot]@users.noreply.github.com'")
-              os.system("git add json/fullSchoolList.json")
-              os.system(f"git commit -m \"{commit_message}\"")
-              os.system("git push")
+          console.log("✅ Process completed: Duplicates removed, lists sorted, and files updated.");
+          '
 
-          # Sort the cleaned list alphabetically
-          sorted_data = sorted(cleaned_data, key=lambda x: x["name"].strip().lower())
-
-          # Save the sorted full school list
-          with open("json/fullSchoolList.json", "w", encoding="utf-8") as f:
-              json.dump(sorted_data, f, indent=2, ensure_ascii=False)
-
-          # Extract and sort school names
-          school_names = [entry["name"] for entry in sorted_data]
-
-          # Save to JSON
-          with open("json/schoolList.json", "w", encoding="utf-8") as f:
-              json.dump(school_names, f, indent=2, ensure_ascii=False)
-
-          # Save to TXT
-          with open("text/schoolList.txt", "w", encoding="utf-8") as f:
-              f.write("\n".join(school_names) + "\n")
-
-      - name: Commit and Push Sorted List
+      - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -88,5 +64,5 @@ jobs:
           # Check for changes and commit if needed
           git diff --quiet && exit 0  # Exit if no changes
           git add json/fullSchoolList.json json/schoolList.json text/schoolList.txt
-          git commit -m "🥂Sorted and Updated the Entries🥂"
+          git commit -m "Sorted and removed duplicate school entries"
           git push
