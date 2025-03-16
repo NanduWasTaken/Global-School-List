@@ -100,10 +100,6 @@ Stanford University
    - Extracts school names to generate `json/schoolList.json` and `text/schoolList.txt`.  
    - Commits the updated files back to the repository.  
 
-## 📝 Disclaimer  
-- This data is **not official** and may contain errors or outdated information.  
-- For the most accurate and up-to-date eligibility status, always refer to [GitHub Education](https://education.github.com/discount_requests).  
-
 ## 📥 Contributing  
 If you find any incorrect or missing information, feel free to **open an issue** or **submit a pull request**!  
 
@@ -112,6 +108,7 @@ This project is open-source under the **MIT License**.
 
 
 ## 📝 Disclaimer  
+- This list is not 100% complete!
 - This data is **not official** and is not 100% accurate and reliable.
 - Just because your institution's name is not in this list or not in github institution selector when requesting doesn't mean you are completely ineligible, you can still try to apply.
 - For the most accurate and up-to-date eligibility status, always refer to [GitHub Education](https://education.github.com/discount_requests).  
