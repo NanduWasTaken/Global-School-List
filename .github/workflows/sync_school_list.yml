@@ -64,5 +64,5 @@ jobs:
           # Check for changes and commit if needed
           git diff --quiet && exit 0  # Exit if no changes
           git add json/fullSchoolList.json json/schoolList.json text/schoolList.txt
-          git commit -m "Sorted and removed duplicate school entries"
+          git commit -m "🥂[BOT] Synced & Sorted🥂"
           git push
