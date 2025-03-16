@@ -1,4 +1,4 @@
-name: Sync School Lists
+name: Sync and Remove Duplicate School Entries
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Extract School Names
+      - name: Remove Duplicate New Entries
         run: |
           import json
           import os
@@ -32,8 +32,45 @@ jobs:
           with open("json/fullSchoolList.json", "r", encoding="utf-8") as f:
               data = json.load(f)
 
-          # Extract names
-          school_names = [entry["name"] for entry in data if "name" in entry]
+          # Detect duplicates by checking names
+          seen = set()
+          cleaned_data = []
+          duplicates_removed = []
+
+          for entry in data:
+              name = entry.get("name", "").strip().lower()
+              if name in seen:
+                  duplicates_removed.append(entry)  # Store duplicate for logging
+              else:
+                  seen.add(name)
+                  cleaned_data.append(entry)
+
+          # If duplicates were found, commit them as deleted
+          if duplicates_removed:
+              # Save the cleaned list back
+              with open("json/fullSchoolList.json", "w", encoding="utf-8") as f:
+                  json.dump(cleaned_data, f, indent=2, ensure_ascii=False)
+
+              # Commit the changes with the deleted entry names
+              commit_message = "Deleted duplicate entries: " + ", ".join(
+                  [entry['name'] for entry in duplicates_removed]
+              )
+
+              os.system("git config --global user.name 'github-actions[bot]'")
+              os.system("git config --global user.email 'github-actions[bot]@users.noreply.github.com'")
+              os.system("git add json/fullSchoolList.json")
+              os.system(f"git commit -m \"{commit_message}\"")
+              os.system("git push")
+
+          # Sort the cleaned list alphabetically
+          sorted_data = sorted(cleaned_data, key=lambda x: x["name"].strip().lower())
+
+          # Save the sorted full school list
+          with open("json/fullSchoolList.json", "w", encoding="utf-8") as f:
+              json.dump(sorted_data, f, indent=2, ensure_ascii=False)
+
+          # Extract and sort school names
+          school_names = [entry["name"] for entry in sorted_data]
 
           # Save to JSON
           with open("json/schoolList.json", "w", encoding="utf-8") as f:
@@ -41,13 +78,15 @@ jobs:
 
           # Save to TXT
           with open("text/schoolList.txt", "w", encoding="utf-8") as f:
-              f.write("\n".join(school_names))
+              f.write("\n".join(school_names) + "\n")
 
-      - name: Commit and Push Changes
+      - name: Commit and Push Sorted List
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add json/schoolList.json text/schoolList.txt
-          git commit -m "Sync school lists from json/fullSchoolList.json"
+
+          # Check for changes and commit if needed
+          git diff --quiet && exit 0  # Exit if no changes
+          git add json/fullSchoolList.json json/schoolList.json text/schoolList.txt
+          git commit -m "🥂Sorted and Updated the Entries🥂"
           git push
-          
