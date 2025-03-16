@@ -1,0 +1,53 @@
+name: Sync School Lists
+
+on:
+  push:
+    paths:
+      - "json/fullSchoolList.json"
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  update-school-lists:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Extract School Names
+        run: |
+          import json
+          import os
+
+          # Ensure directories exist
+          os.makedirs("json", exist_ok=True)
+          os.makedirs("text", exist_ok=True)
+
+          # Load full school list
+          with open("json/fullSchoolList.json", "r", encoding="utf-8") as f:
+              data = json.load(f)
+
+          # Extract names
+          school_names = [entry["name"] for entry in data if "name" in entry]
+
+          # Save to JSON
+          with open("json/schoolList.json", "w", encoding="utf-8") as f:
+              json.dump(school_names, f, indent=2, ensure_ascii=False)
+
+          # Save to TXT
+          with open("text/schoolList.txt", "w", encoding="utf-8") as f:
+              f.write("\n".join(school_names))
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add json/schoolList.json text/schoolList.txt
+          git commit -m "Sync school lists from json/fullSchoolList.json"
+          git push
+          
