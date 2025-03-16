@@ -1,5 +1,5 @@
 # 🚀 GitHub Student Program Eligibility List  
-
+---
 
 > [!NOTE]
 > **These lists were collected manually!**  GitHub does not allow automated scraping of [GitHub Education](https://education.github.com), so all the information in this repository was gathered through manual research.  
@@ -12,21 +12,6 @@ This repository contains a list of educational institutions that are **eligible*
 
 ## 🔍 Why This Matters  
 Many students struggle to determine if their institution qualifies for GitHub's student benefits. This repository aims to **simplify the process** by providing a manually verified list.  
-
-# 🚀 GitHub Student Program Eligibility List  
-
-⚠️ **Warning: This data was collected manually!**  
-GitHub does not allow automated scraping of [education.github.com](https://education.github.com), so all the information in this repository was gathered through manual research.  
-
----
-
-## 📚 About This Repository  
-This repository contains a list of educational institutions that are **eligible** for the **GitHub Student Developer Pack**. The dataset includes:  
-- 📌 School names  
-- 🌐 Verified domains  
-- 🌎 Country details (if available)  
-
----
 
 ## 📂 Available Files  
 
