@@ -20,7 +20,7 @@ Many students struggle to determine if their institution qualifies for GitHub's 
 
 ## 📥 Contributing  
 - If you find any incorrect or missing information, feel free to **open an issue** or **submit a pull request**!  
-- Only add new Entries to the [Full Student List]() since there is a workflow to add the institution names to the rest of the files.
+- Only add new Entries to the [Full Student List](https://github.com/NanduWasTaken/GitHub-Student-Program-School-List/blob/main/json/fullSchoolList.json) since there is a workflow to add the institution names to the rest of the files.
 
 ## 📜 License  
 This project is open-source under the **MIT License**.  
