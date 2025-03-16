@@ -27,7 +27,7 @@ Many students struggle to determine if their institution qualifies for GitHub's 
 #### **Example Structure:**
 ```json
 [
-	{
+  {
     "name": "University of Cambodia",
     "verification_required": false,
     "informal_partner": false,
