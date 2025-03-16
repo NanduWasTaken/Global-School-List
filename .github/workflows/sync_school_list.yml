@@ -58,7 +58,7 @@ jobs:
 
       - name: Commit and Push Changes
         run: |
-          git config --global user.name "github-actions[bot]"
+          git config --global user.name "NanduWasTaken BOT"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
           # Check for changes and commit if needed
