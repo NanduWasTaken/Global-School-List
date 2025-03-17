@@ -8,7 +8,7 @@
 > **Website for Searching Institution Eligiblility.** If this github repository gets enough attention I will make a static website for students to look up their institution eligiblity for github student program. For this we have to record the whole of the eligible institution which is a very hectic task. This repository only contains 22000+ unique institution, so please consider contributing to increase this list and for future betterment for this project.
 
 ## 📚 About This Repository  
-This repository contains a list of educational institutions that are **eligible** for the **GitHub Student Developer Pack**.There are over 22000+ unique institutions in this list. The dataset includes:  
+This repository contains a list of educational institutions that are **eligible** for the **GitHub Student Developer Pack**. There are over **22000+ unique institutions** in this list. The dataset includes:  
 - 📌 School names  
 - 🌐 Verified domains  
 - ✅ Eligibility details  
