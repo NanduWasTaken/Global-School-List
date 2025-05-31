@@ -66,8 +66,11 @@ jobs:
           git config --global user.name "NanduWasTaken BOT"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Check for changes and commit if needed
-          git diff --quiet && exit 0  # Exit if no changes
+          # Add all possible files, including new ones
           git add json/fullSchoolList.json json/schoolList.json text/schoolList.txt text/schoolList.csv
+
+          # Only commit if there are staged changes (tracked or new)
+          git diff --cached --quiet && exit 0  # Exit if no changes
+
           git commit -m "🥂[BOT] Synced & Sorted🥂"
           git push
