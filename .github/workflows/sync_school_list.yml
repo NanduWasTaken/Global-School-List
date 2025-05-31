@@ -28,6 +28,7 @@ jobs:
           const fullListPath = "json/fullSchoolList.json";
           const schoolListJsonPath = "json/schoolList.json";
           const schoolListTxtPath = "text/schoolList.txt";
+          const schoolListCsvPath = "text/schoolList.csv";
 
           // Ensure directories exist
           fs.mkdirSync("json", { recursive: true });
@@ -53,6 +54,10 @@ jobs:
           fs.writeFileSync(schoolListJsonPath, JSON.stringify(schoolNames, null, 2));
           fs.writeFileSync(schoolListTxtPath, schoolNames.join("\n") + "\n");
 
+          // Write CSV file
+          const csvContent = "name\n" + schoolNames.map(n => `"${n.replace(/"/g, '""')}"`).join("\n") + "\n";
+          fs.writeFileSync(schoolListCsvPath, csvContent);
+
           console.log("✅ Process completed: Duplicates removed, lists sorted, and files updated.");
           '
 
@@ -63,6 +68,6 @@ jobs:
 
           # Check for changes and commit if needed
           git diff --quiet && exit 0  # Exit if no changes
-          git add json/fullSchoolList.json json/schoolList.json text/schoolList.txt
+          git add json/fullSchoolList.json json/schoolList.json text/schoolList.txt text/schoolList.csv
           git commit -m "🥂[BOT] Synced & Sorted🥂"
           git push
