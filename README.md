@@ -1,20 +1,20 @@
-# 🚀 GitHub Student Program Eligibility List  
+# 🚀 Global School List  
 ---
 
 > [!WARNING]
-> **These lists were collected manually!**  GitHub does not allow automated scraping of [GitHub Education](https://education.github.com) it is against their terms of service, so all the information in this repository was gathered through manual research.
+> **These lists were collected manually!**  GitHub does not allow automated scraping of our primary source: [GitHub Education](https://education.github.com) it is against their terms of service, so all the information in this repository was gathered through manual research.
 
 > [!NOTE]
-> **Website for Searching Institution Eligiblility.** If this github repository gets enough attention I will make a static website for students to look up their institution eligiblity for github student program. I know this is already present in the school name field in github student application but its search is not very good, I would mainly focus on its better search engine. For this we have to record the whole of the eligible institution which is a very hectic task. This repository only contains 22000+ unique institution, so please consider contributing to increase this list and for future betterment for this project.
+> This does not contain every school in the world, it only has 22000+ schools. We hope to add more schools in the furture.
 
 ## 📚 About This Repository  
-This repository contains a list of educational institutions that are **eligible** for the **GitHub Student Developer Pack**. There are over **22000+ unique institutions** in this list. The dataset includes:  
+This repository contains a list of **Educational Institutions**. There are over **22000+ unique institutions** in this list. The dataset includes:  
 - 📌 School names  
 - 🌐 Verified domains  
-- ✅ Eligibility details  
+- ✅ Other Details
 
 ## 🔍 Why This Matters  
-Many students struggle to determine if their institution qualifies for GitHub's student benefits. This repository aims to **simplify the process** by providing a manually verified list.  
+There no Open Source Database in the world containing every school name and details in the world. So i though I should contribute a little
 
 ## 📂 Available Files  
 
@@ -98,8 +98,6 @@ This project is open-source under the **MIT License**.
 ## 📝 Disclaimer  
 - This list is not 100% complete!
 - This data is **not official** and is not 100% accurate and reliable.
-- Just because your institution's name is not in this list or not in github institution selector when requesting doesn't mean you are completely ineligible, you can still try to apply.
-- For the most accurate and up-to-date eligibility status, always refer to [GitHub Education](https://education.github.com/discount_requests).  
 
 ## 📥 Contributing  
 - If you find any incorrect or missing information, feel free to **open an issue** or **submit a pull request**!  
